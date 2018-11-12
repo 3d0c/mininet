@@ -54,7 +54,7 @@ And switches, hosts, namespaces, links, cgroups and processess will be created, 
 
 If a **Host** record has a "Cgroup" field, like __net1-h1__ host from [example.json](apps/example.json):
 
-```json
+```javascript
 
 "Hosts": [
     {
