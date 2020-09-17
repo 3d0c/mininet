@@ -92,7 +92,7 @@ func TestLink(t *testing.T) {
 		expected Pair
 	}{
 		{
-			refs: []Link{Link{Cidr: "192.168.66.1/24", Routes: []Route{}}, Link{Cidr: "192.168.66.2/24", Routes: []Route{{"0.0.0.0/0", "192.168.66.1"}}}},
+			refs: []Link{{Cidr: "192.168.66.1/24", Routes: []Route{}}, {Cidr: "192.168.66.2/24", Routes: []Route{{"0.0.0.0/0", "192.168.66.1"}}}},
 			expected: Pair{
 				Link{
 					"192.168.66.1/24",
