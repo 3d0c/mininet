@@ -52,7 +52,7 @@ func (p Pool) NextCidr(args ...interface{}) string {
 	if len(args) == 1 {
 		cidr = args[0].(string)
 	} else {
-		for _, k := range p.cache {
+		for k := range p.cache {
 			ipnet := p.cache[k]
 			cidr = ipnet.String()
 			break
@@ -104,7 +104,7 @@ func (p Pool) NextAddr(args ...interface{}) string {
 		}
 
 	case 0:
-		for _, k := range p.cache {
+		for k := range p.cache {
 			ipnet = p.cache[k]
 			break
 		}

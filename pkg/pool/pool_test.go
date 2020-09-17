@@ -32,6 +32,9 @@ func TestNextAddr(t *testing.T) {
 }
 
 func TestCustomRange(t *testing.T) {
+	// reset previous one
+	instance.created = false
+
 	// init pool with custom range
 	ThePool("192.168.0.0/24")
 
