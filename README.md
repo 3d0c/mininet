@@ -13,11 +13,17 @@ Open source Go implementation of [mininet](http://mininet.org/) and [openflow](h
 
 ### Prerequisites
 
-Install libcgroups and libcgroups-dev.  
+Install libcgroups, libcgroups-dev and openvswitch.  
 Ubuntu commands:
 
+```sh
+apt-get install libcgroup libcgroup-dev 
 ```
-apt-get install libcgroup-dev libcgroup1
+
+CentOS/RHEL:  
+
+```sh
+yum install libcgroup libcgroup-devel
 ```
 
 #### Tests
@@ -325,31 +331,31 @@ Interconnect two hosts with the switch, ping and release the scheme.
 package main
 
 import (
-    mn "github.com/NodePrime/open-mininet"
     "time"
+    "github.com/3d0c/mininet"
 )
 
 func main() {
     // creating an instance of Scheme struct, which is just a
-    // a storage for futher nodes
-    scheme := mn.NewScheme()
+    // a storage for further nodes
+    scheme := mininet.NewScheme()
 
     defer scheme.Release()
 
     // create new host h1
-    host1, err := mn.NewHost("h1")
+    host1, err := mininet.NewHost("h1")
     if err != nil {
         panic(err)
     }
 
     // create new switch with random name
-    sw, err := mn.NewSwitch()
+    sw, err := mininet.NewSwitch()
     if err != nil {
         panic(err)
     }
 
     // interconnect nodes
-    pair := mn.NewLink(sw, host1, mn.Link{Cidr: "noip"}, mn.Link{Cidr: "192.168.44.1/24"})
+    pair := mininet.NewLink(sw, host1, mininet.Link{Cidr: "noip"}, mininet.Link{Cidr: "192.168.44.1/24"})
 
     // physically create link
     if err := pair.Create(); err != nil {
@@ -370,12 +376,12 @@ func main() {
 
     // repeat for host2
 
-    host2, err := mn.NewHost("h2")
+    host2, err := mininet.NewHost("h2")
     if err != nil {
         panic(err)
     }
 
-    pair2 := mn.NewLink(sw, host2, mn.Link{Cidr: "noip"}, mn.Link{Cidr: "192.168.44.2/24"})
+    pair2 := mininet.NewLink(sw, host2, mininet.Link{Cidr: "noip"}, mininet.Link{Cidr: "192.168.44.2/24"})
     if err := pair2.Create(); err != nil {
         panic(err)
     }
