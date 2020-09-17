@@ -333,7 +333,7 @@ func main() {
 
 		case "import":
 			if len(commands) > 1 {
-				tmp, err := mn.NewSchemeFromJson(commands[1])
+				tmp, err := mn.NewSchemeFromJSON(commands[1])
 				if err != nil {
 					log.Println(err)
 					break

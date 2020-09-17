@@ -34,13 +34,13 @@ type Set struct {
 // 4. Physically create cgroup
 // 5. Set controllers values
 func NewCgroup(name string) (*Cgroup, error) {
-	this := &Cgroup{Name: name}
+	cg := &Cgroup{Name: name}
 
 	cgroup.Init()
 
-	this.Cgroup = cgroup.NewCgroup(name)
+	cg.Cgroup = cgroup.NewCgroup(name)
 
-	return this, nil
+	return cg, nil
 }
 
 // UnmarshalJSON satisfies Unarshller

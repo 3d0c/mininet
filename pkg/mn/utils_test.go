@@ -1,7 +1,6 @@
 package mn
 
 import (
-	"errors"
 	"fmt"
 	"log"
 	"net"
@@ -106,7 +105,7 @@ func ping(h1, h2 *Host) error {
 	}
 
 	if !strings.Contains(out, "1 packets transmitted, 1 received") {
-		return fmt.Sprintf("Unexpected ping result: %s", out)
+		return fmt.Errorf("Unexpected ping result: %s", out)
 	}
 
 	return nil

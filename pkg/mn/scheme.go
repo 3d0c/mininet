@@ -2,7 +2,6 @@ package mn
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -57,12 +56,12 @@ func (s *Scheme) AddNode(n interface{}) *Scheme {
 	case *Switch:
 		s.Switches = append(s.Switches, n.(*Switch))
 	case *Host:
-		this.Hosts = append(s.Hosts, n.(*Host))
+		s.Hosts = append(s.Hosts, n.(*Host))
 	default:
 		log.Printf("Wrong call, unknown type %s for %v\n", t, n)
 	}
 
-	return this
+	return s
 }
 
 // GetNode returns Node depending on type
@@ -126,7 +125,7 @@ func (s Scheme) Export() string {
 
 // Recover nodes scheme
 func (s Scheme) Recover() error {
-	for _, node := range this.Nodes() {
+	for node := range s.Nodes() {
 		switch t := node.(type) {
 		case *Switch:
 			s.recoverSwitchPorts(node.(*Switch))
@@ -187,7 +186,7 @@ func (s Scheme) recoverSwitchPorts(sw *Switch) error {
 			return err
 		}
 
-		this.pairs[hash] = true
+		s.pairs[hash] = true
 	}
 
 	return nil
@@ -211,7 +210,7 @@ func (s Scheme) recoverHostLinks(h *Host) error {
 		pair := Pair{left, right}
 
 		hash := left.NodeName + left.Name + right.NodeName + right.Name
-		if this.pairs[hash] {
+		if s.pairs[hash] {
 			continue
 		}
 
@@ -226,14 +225,14 @@ func (s Scheme) recoverHostLinks(h *Host) error {
 
 		h.AddLink(left)
 
-		h2, found := this.GetHost(right.NodeName)
+		h2, found := s.GetHost(right.NodeName)
 		if !found {
 			return fmt.Errorf("Can't find host node %s", right.NodeName)
 		}
 
 		h2.AddLink(right)
 
-		this.pairs[hash] = true
+		s.pairs[hash] = true
 	}
 
 	return nil
@@ -241,7 +240,7 @@ func (s Scheme) recoverHostLinks(h *Host) error {
 
 // Release nodes
 func (s *Scheme) Release() {
-	for _, node := range s.Nodes() {
+	for node := range s.Nodes() {
 		node.Release()
 	}
 }

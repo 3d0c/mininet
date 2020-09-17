@@ -166,7 +166,7 @@ func (pr Pair) IsPatch() bool {
 
 // Release the link
 func (l Link) Release() {
-	command := []string{"ip", "link", "delete", pr.Name}
+	command := []string{"ip", "link", "delete", l.Name}
 
 	if l.NetNs != "" {
 		command = append([]string{"ip", "netns", "exec", l.NetNs}, command...)
@@ -177,7 +177,7 @@ func (l Link) Release() {
 
 // ApplyMac applies MAC address
 func (l Link) ApplyMac() error {
-	if out, err := RunCommand("ip", "link", "set", "dev", pr.Name, "address", l.HwAddr); err != nil {
+	if out, err := RunCommand("ip", "link", "set", "dev", l.Name, "address", l.HwAddr); err != nil {
 		return fmt.Errorf("Error: %v, output: %s", err, out)
 	}
 
@@ -295,7 +295,7 @@ func (l Link) SetNodeName(n Node) Link {
 		l.NodeName = n.NodeName()
 	}
 
-	return s
+	return l
 }
 
 // SetNetNs sets network name space

@@ -178,7 +178,7 @@ func (cg Cgroup) SetUIDGid(tasksUID UID, tasksGid GID,
 	controlUID UID, controlGid GID) error {
 	return _err(C.cgroup_set_uid_gid(cg.g,
 		C.uid_t(tasksUID), C.gid_t(tasksGid),
-		C.uid_t(controlUId), C.gid_t(controlGid)))
+		C.uid_t(controlUID), C.gid_t(controlGid)))
 
 }
 
@@ -197,16 +197,16 @@ func (cg Cgroup) GetUIDGid() (tasksUID UID, tasksGid GID, controlUID UID, contro
 		ctg,
 		ccu,
 		ccg))
-	return UID(c_t_u), GID(c_t_g), UID(c_c_u), GID(c_c_g), err
+	return UID(ctu), GID(ctg), UID(ccu), GID(ccg), err
 
 }
 
 const (
 	// NoPerms is uninitialized file/directory permissions used for task/control files.
-	NoPerms = C.NoPerms
+	NoPerms = C.NO_PERMS
 
 	// NoUIDGid in uninitialized UID/GID used for task/control files.
-	NoUIDGid = C.NoUIDGid
+	NoUIDGid = C.NO_UID_GID
 )
 
 // Mode map C  type mode_t
@@ -481,7 +481,7 @@ var (
 	ErrRoupNotEqual = errors.New(C.GoString(C.cgroup_strerror(C.ECGROUPNOTEQUAL)))
 
 	// ErrControllerNotEqual (todo)
-	ErrControllerNotEqual = errors.New(C.GoString(C.cgroup_strerror(C.ECGCONTROLLERNNOTEQUAL)))
+	ErrControllerNotEqual = errors.New(C.GoString(C.cgroup_strerror(C.ECGCONTROLLERNOTEQUAL)))
 )
 
 // LastError returns last errno, which caused ErrOther error.
@@ -493,13 +493,13 @@ func _err(num C.int) error {
 	switch num {
 	case 0:
 		return nil
-	case C.ErrEOF:
+	case C.ECGEOF:
 		return ErrEOF
-	case C.ErrOther:
+	case C.ECGOTHER:
 		return ErrOther
-	case C.ErrRoupNotEqual:
+	case C.ECGROUPNOTEQUAL:
 		return ErrRoupNotEqual
-	case C.ErrControllerNotEqual:
+	case C.ECGCONTROLLERNOTEQUAL:
 		return ErrControllerNotEqual
 	}
 	// There's a lot. We'll create them as they come

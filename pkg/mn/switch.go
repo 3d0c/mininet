@@ -2,7 +2,6 @@ package mn
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"log"
 )

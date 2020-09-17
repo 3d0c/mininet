@@ -11,7 +11,6 @@ int setns(int fd, int nstype) {
 import "C"
 
 import (
-	"errors"
 	"fmt"
 	"log"
 	"os"
@@ -34,19 +33,19 @@ func NewNetNs(name string) (*NetNs, error) {
 	}
 
 	if netns.Exists() {
-		return this, nil
+		return netns, nil
 	}
 
 	if err := netns.Create(); err != nil {
-		return this, err
+		return netns, err
 	}
 
-	return this, nil
+	return netns, nil
 }
 
 // Create network namespace
 func (n NetNs) Create() error {
-	if out, err := RunCommand("ip", "netns", "add", this.name); err != nil {
+	if out, err := RunCommand("ip", "netns", "add", n.name); err != nil {
 		return fmt.Errorf("Error: %v, output: %s", err, out)
 	}
 

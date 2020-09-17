@@ -5,7 +5,7 @@ import (
 )
 
 func TestCgroupImport(t *testing.T) {
-	scheme, err := NewSchemeFromJson(exampleScheme)
+	scheme, err := NewSchemeFromJSON(exampleScheme)
 	if err != nil {
 		t.Fatal(err)
 	}

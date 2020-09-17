@@ -59,7 +59,7 @@ func TestSchemeSimple(t *testing.T) {
 
 // @todo make it "self-hosted". hardcoded to example.json
 func TestSchemeFromJson(t *testing.T) {
-	scheme, err := NewSchemeFromJson(exampleScheme)
+	scheme, err := NewSchemeFromJSON(exampleScheme)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -86,7 +86,7 @@ func TestSchemeFromJson(t *testing.T) {
 
 // @todo test everything created
 func TestSchemeApply(t *testing.T) {
-	scheme, err := NewSchemeFromJson(exampleScheme)
+	scheme, err := NewSchemeFromJSON(exampleScheme)
 	if err != nil {
 		t.Fatal(err)
 	}

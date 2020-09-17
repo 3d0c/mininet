@@ -1,7 +1,6 @@
 package mn
 
 import (
-	"errors"
 	"fmt"
 	"log"
 	"os"
@@ -47,7 +46,7 @@ func (p Process) GetPid() int {
 // Stop sends Interrupt signal to the process
 func (p Process) Stop() error {
 	if p.Process == nil {
-		return fmt.Errorf("No such process: %s %s", this.Command, this.Args)
+		return fmt.Errorf("No such process: %s %s", p.Command, p.Args)
 	}
 
 	if err := p.Signal(os.Interrupt); err != nil {
@@ -73,7 +72,7 @@ func (p Process) findProcessByName(netns string) (*os.Process, error) {
 		return nil, err
 	}
 
-	name := p.Command + " " + strings.Join(this.Args, " ")
+	name := p.Command + " " + strings.Join(p.Args, " ")
 
 	lines := strings.Split(out, "\n")
 
