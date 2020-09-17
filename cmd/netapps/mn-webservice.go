@@ -15,7 +15,7 @@ import (
 // FlowMods is a set of *ofp10.FlowMod
 type FlowMods []*ofp10.FlowMod
 
-// Switches populates ogo.Switches() with recieved json
+// Switches populates ogo.Switches() with received json
 func Switches(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	b, err := json.MarshalIndent(ogo.Switches(), "", "      ")
 	if err != nil {

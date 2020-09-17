@@ -175,7 +175,7 @@ func (l Link) Release() {
 	RunCommand(command[0], command[1:]...)
 }
 
-// ApplyMac applies MAC addres
+// ApplyMac applies MAC address
 func (l Link) ApplyMac() error {
 	if out, err := RunCommand("ip", "link", "set", "dev", pr.Name, "address", l.HwAddr); err != nil {
 		return fmt.Errorf("Error: %v, output: %s", err, out)

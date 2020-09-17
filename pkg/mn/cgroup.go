@@ -127,8 +127,8 @@ func (c *Cgroup) CgExecCommand() []string {
 
 	command := []string{FullPathFor("cgexec"), "-g"}
 
-	for _, controller := range c.Controllers {
-		groups += c.Name + ","
+	for _, cr := range c.Controllers {
+		groups += cr.Name + ","
 	}
 
 	groups = strings.TrimRight(groups, ",") + ":" + c.Name

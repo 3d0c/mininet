@@ -21,11 +21,6 @@ type Process struct {
 	Output  string
 }
 
-// Add process into set
-func (ps Procs) Add(p *Process) {
-	ps = append(ps, p)
-}
-
 // GetByPid gets process by pid
 func (ps Procs) GetByPid(pid int) *Process {
 	for i := range ps {

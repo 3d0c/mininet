@@ -132,7 +132,7 @@ func (s *Switch) AddPatchPort(l Link) error {
 	return nil
 }
 
-// SetController sets Controlles name and address
+// SetController sets Controller name and address
 func (s *Switch) SetController(addr string) error {
 	if out, err := RunCommand("ovs-vsctl", "set-controller", s.NodeName(), addr); err != nil {
 		return fmt.Errorf("Error: %v, output: %s", err, out)
