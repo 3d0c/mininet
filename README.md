@@ -1,7 +1,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/3d0c/mininet)](https://goreportcard.com/report/github.com/3d0c/mininet)
 
 ## open-mininet
-Open source Go implementation of [mininet](http://mininet.org/) and [openflow](https://www.opennetworking.org/Openflow) [controller](http://archive.openflow.org/wp/openflow-components/) examples.
+Open source Go implementation of [mininet](http://mininet.org/) and [openflow](https://www.opennetworking.org/Openflow) [controller](http://archive.openflow.org/wp/openflow-components/) examples. This project is a good start for getting familiar with SDN and OpenFlow.
 
 #### Features
 - Creating network topology from **hosts** and **switches**
@@ -33,7 +33,7 @@ go install ./...
 Then, all tests should pass
 
 ```
-go test
+go test ./...
 ```
 
 
