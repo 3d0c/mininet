@@ -23,7 +23,7 @@ func NewL3Forwarder(f []string) func() interface{} {
 
 // L3Forwarder definition
 type L3Forwarder struct {
-	arpTable *hostmap
+	arpTable *Hostmap
 	fakeways []string
 }
 
@@ -54,7 +54,7 @@ func sendLostBuffers(dpid net.HardwareAddr, ipaddr net.IP, macaddr net.HardwareA
 	for _, buffer := range buffers {
 		msg := ofp10.NewPacketOut()
 		msg.InPort = buffer.inport
-		msg.bufferID = buffer.bufferID
+		msg.BufferId = buffer.bufferID
 		msg.Data = nil
 		msg.AddAction(ofp10.NewActionDLDst(macaddr))
 		msg.AddAction(ofp10.NewActionOutput(port))
@@ -114,7 +114,7 @@ func (l3 *L3Forwarder) PacketIn(dpid net.HardwareAddr, pkt *ofp10.PacketIn) {
 
 			msg.IdleTimeout = 30
 			msg.HardTimeout = 20
-			msg.bufferID = pkt.bufferID
+			msg.BufferId = pkt.BufferId
 
 			if sw, ok := ogo.Switch(dpid); ok {
 				sw.Send(msg)
@@ -125,7 +125,7 @@ func (l3 *L3Forwarder) PacketIn(dpid net.HardwareAddr, pkt *ofp10.PacketIn) {
 				lostBuffers[pair{dpid.String(), ip.NWDst.String()}] = make([]buffer, 0)
 			}
 
-			lostBuffers[pair{dpid.String(), ip.NWDst.String()}] = append(lostBuffers[pair{dpid.String(), ip.NWDst.String()}], buffer{pkt.bufferID, pkt.InPort})
+			lostBuffers[pair{dpid.String(), ip.NWDst.String()}] = append(lostBuffers[pair{dpid.String(), ip.NWDst.String()}], buffer{pkt.BufferId, pkt.InPort})
 
 			arpReq, err := arp.New(arp.Type_Request)
 			if err != nil {

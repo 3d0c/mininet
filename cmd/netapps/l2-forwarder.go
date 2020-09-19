@@ -8,12 +8,6 @@ import (
 	"github.com/3d0c/ogo/protocol/ofp10"
 )
 
-// Host definition
-type Host struct {
-	mac  net.HardwareAddr
-	port uint16
-}
-
 // NewL2Forwarder interface
 func NewL2Forwarder() interface{} {
 	return &L2Forwarder{NewHostMap()}
@@ -21,7 +15,7 @@ func NewL2Forwarder() interface{} {
 
 // L2Forwarder definition
 type L2Forwarder struct {
-	*hostmap
+	*Hostmap
 }
 
 // PacketIn processess input packet
@@ -34,9 +28,9 @@ func (l2 *L2Forwarder) PacketIn(dpid net.HardwareAddr, pkt *ofp10.PacketIn) {
 	}
 
 	// l2.SetHost(eth.HWSrc, pkt.InPort)
-	l2.hostmap.Add(eth.HWSrc, pkt.InPort)
+	l2.Hostmap.Add(eth.HWSrc, pkt.InPort)
 
-	if host, ok := l2.hostmap.Host(eth.HWDst); ok {
+	if host, ok := l2.Hostmap.Host(eth.HWDst); ok {
 		if host.port == pkt.InPort {
 			log.Println("Same port for packet from %s -> %s on %s.%s\n", eth.HWSrc, eth.HWDst, dpid, host.port)
 			return

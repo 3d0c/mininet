@@ -1,3 +1,5 @@
+[![Go Report Card](https://goreportcard.com/badge/github.com/3d0c/mininet)](https://goreportcard.com/report/github.com/3d0c/mininet)
+
 ## open-mininet
 Open source Go implementation of [mininet](http://mininet.org/) and [openflow](https://www.opennetworking.org/Openflow) [controller](http://archive.openflow.org/wp/openflow-components/) examples.
 
@@ -14,16 +16,10 @@ Open source Go implementation of [mininet](http://mininet.org/) and [openflow](h
 ### Prerequisites
 
 Install libcgroups, libcgroups-dev and openvswitch.  
-Ubuntu commands:
+Ubuntu command:
 
 ```sh
-apt-get install libcgroup libcgroup-dev 
-```
-
-CentOS/RHEL:  
-
-```sh
-yum install libcgroup libcgroup-devel
+apt-get install libcgroup libcgroup-dev openvswitch-switch
 ```
 
 #### Tests
