@@ -22,7 +22,7 @@ func Switches(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 
-	fmt.Fprint(w, "%s\n", string(b))
+	fmt.Fprintf(w, "%s\n", string(b))
 }
 
 // AddFlow adds flow for switches

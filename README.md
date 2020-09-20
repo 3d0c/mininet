@@ -19,7 +19,7 @@ Install libcgroups, libcgroups-dev and openvswitch.
 Ubuntu command:
 
 ```sh
-apt-get install libcgroup libcgroup-dev openvswitch-switch
+apt-get install libcgroup1 libcgroup-dev openvswitch-switch
 ```
 
 #### Tests

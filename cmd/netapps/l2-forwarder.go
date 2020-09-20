@@ -32,7 +32,7 @@ func (l2 *L2Forwarder) PacketIn(dpid net.HardwareAddr, pkt *ofp10.PacketIn) {
 
 	if host, ok := l2.Hostmap.Host(eth.HWDst); ok {
 		if host.port == pkt.InPort {
-			log.Println("Same port for packet from %s -> %s on %s.%s\n", eth.HWSrc, eth.HWDst, dpid, host.port)
+			log.Printf("Same port for packet from %s -> %s on %v.%d\n", eth.HWSrc, eth.HWDst, dpid, host.port)
 			return
 		}
 
